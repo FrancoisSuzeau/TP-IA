@@ -23,7 +23,7 @@ ${EXEC}: ${OBJET}
 
 # au cas ou .h est modifié
 
-main.o: Neural.hpp
+Main.o: Neural/Neural.hpp
 
 %.o:%.cpp
 	@$(CC) -o $@ -c $< ${CFLAGS}
