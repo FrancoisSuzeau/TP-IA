@@ -14,7 +14,7 @@
 
 */
 
-#include <iostream>
+#include "Neural/Neural.hpp"
 
 
 int main(int args, char *argv[])
@@ -22,8 +22,9 @@ int main(int args, char *argv[])
     (void) args;
     (void) argv;
 
+    Neural ne("Inactive");
 
-    std::cout << ">>> Neural network -- status : Inactive." << std::endl;
+    std::cout << ">>> Neural network -- status : " << ne.getStatus() << std::endl;
 
     return EXIT_SUCCESS;
 }
