@@ -14,7 +14,7 @@
 
 */
 
-#include "Neuron/Neuron.hpp"
+#include "NeuralNetwork/Neuron/Neuron.hpp"
 
 
 int main(int args, char *argv[])

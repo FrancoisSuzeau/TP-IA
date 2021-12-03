@@ -35,7 +35,7 @@
             
         public:
 
-            Layer();
+            Layer(Layer *previous_layer);
             ~Layer();
     };
 
