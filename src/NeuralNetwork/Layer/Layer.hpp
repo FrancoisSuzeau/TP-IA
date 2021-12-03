@@ -20,6 +20,7 @@
     #include <iostream>
     #include <vector>
     #include <math.h>
+    #include <string>
     
     #include "../Neuron/Neuron.hpp"
 
@@ -27,6 +28,8 @@
     {
         private:
 
+            //TEMPORAIRE
+            std::string             m_id;
             
             std::vector<Neuron*>    m_neurons;
 
@@ -35,8 +38,11 @@
             
         public:
 
-            Layer(Layer *previous_layer);
+            Layer(Layer *previous_layer, int nb_neurons, int id);
             ~Layer();
+
+            void connectNeuronsWithPrev();
+            void displayNeurons() ;
     };
 
 

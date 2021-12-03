@@ -21,17 +21,21 @@
     #include <vector>
     #include <math.h>
     
-    #include "../Layer/Layer.hpp"
+    #include "Layer/Layer.hpp"
 
     class NeuralNetwork
     {
         private:
 
+            std::vector<Layer*>     m_layers;
+
             
         public:
 
-            NeuralNetwork();
+            NeuralNetwork(unsigned int config[2]);
             ~NeuralNetwork();
+
+            void displayLayer();
     };
 
 

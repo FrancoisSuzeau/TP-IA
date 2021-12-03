@@ -19,25 +19,20 @@
 /******************************************************************************************************************************************************/
 /********************************************************* Constructors and destructor ****************************************************************/
 /******************************************************************************************************************************************************/
-Neuron::Neuron(std::string status) : m_status(status), m_weight(0.0f), m_ai_value(0.0f), m_out(0.0f)
+Neuron::Neuron(std::string layerID, float weight) : m_layerID(layerID), m_weight(weight), m_ai_value(0.0f), m_out(0.0f)
 {
 
 }
 
-Neuron::Neuron() : m_status("bias"), m_weight(1.0f), m_ai_value(0.0f), m_out(1.0f) //here no need to set an ai value
+Neuron::Neuron() : m_layerID("bias"), m_weight(1.0f), m_ai_value(0.0f), m_out(1.0f) //here no need to set an ai value
 {
 
 }
 
 Neuron::~Neuron()
 {
-    for(std::vector<Neuron*>::iterator it = in_neurons.begin(); it != in_neurons.end(); ++it)
-    {
-        if(*it != nullptr)
-        {
-            delete *it;
-        }
-    }
+    //? REMIND : No need to delete previous neurons -> already did in Layer class
+
 }
 
 
@@ -52,11 +47,22 @@ void Neuron::calculateLogActivation()
 }
 
 /******************************************************************************************************************************************************/
+/****************************************************************** setPreviousNeurons ****************************************************************/
+/******************************************************************************************************************************************************/
+void Neuron::setPreviousNeurons(std::vector<Neuron*> previous_neurons)
+{
+    for(std::vector<Neuron*>::iterator it = previous_neurons.begin(); it != previous_neurons.end(); ++it)
+    {
+        in_neurons.push_back(*it);
+    }
+}
+
+/******************************************************************************************************************************************************/
 /********************************************************************* getters/setters ****************************************************************/
 /******************************************************************************************************************************************************/
-std::string Neuron::getStatus() const
+std::string Neuron::getLayer() const
 {
-    return m_status;
+    return m_layerID;
 }
 
 float Neuron::getWeight() const

@@ -25,7 +25,7 @@
     {
         private:
 
-            std::string     m_status;
+            std::string     m_layerID;
 
             float           m_weight;
             float           m_ai_value; // equal to the value the neuron compute with the linear function
@@ -40,12 +40,14 @@
 
         public:
 
-            Neuron(std::string status);
+            Neuron(std::string layerID, float weight);
             Neuron(); //Constructor for bias neuron
             ~Neuron();
-            std::string getStatus() const;
+            std::string getLayer() const;
             float       getWeight() const;
             float       getValue() const;
+
+            void setPreviousNeurons(std::vector<Neuron*> previous_neurons);
 
             void setAiValue(float new_value); //here new_value equal what the linear function calculate (WHHEN we will have the static class function)
     };
