@@ -22,7 +22,10 @@ int main(int args, char *argv[])
     (void) args;
     (void) argv;
 
-    
+    unsigned int config[] = {4, 5};
+    NeuralNetwork nw(config);
+
+    nw.displayLayer();
 
     return EXIT_SUCCESS;
 }
