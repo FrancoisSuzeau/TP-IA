@@ -74,7 +74,10 @@ void NeuralNetwork::aiPhase()
 /******************************************************************************************************************************************************/
 void NeuralNetwork::convergencePhase()
 {
-    m_layers[nb_layers]->calculateSigmaNeurons();
+    for(std::vector<Layer*>::iterator it = m_layers.end() - 1; it != m_layers.begin() - 1; --it)
+    {
+        it[0]->calculateSigmaNeurons();
+    }
 }
 
 /******************************************************************************************************************************************************/
