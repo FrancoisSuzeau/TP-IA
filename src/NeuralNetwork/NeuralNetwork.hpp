@@ -28,6 +28,7 @@
         private:
 
             std::vector<Layer*>     m_layers;
+            int                     nb_layers;
 
             
         public:
@@ -35,6 +36,7 @@
             NeuralNetwork(unsigned int config[2]);
             ~NeuralNetwork();
 
+            void aiPhase();
             void displayLayer();
     };
 

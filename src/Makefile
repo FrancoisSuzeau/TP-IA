@@ -12,7 +12,7 @@ CC=g++
 # SRC contient liste des fichier sources du projet 
 # on pourrait utiliser une construction automatique a l'aide du joker *.c et la commande wildcard mais il faudra gerer les dépendances vis a vis des .h
 # SRC=$(wildcard *.c)
-SRC=Main.cpp NeuralNetwork/Neuron/Neuron.cpp NeuralNetwork/Layer/Layer.cpp NeuralNetwork/NeuralNetwork.cpp
+SRC=Main.cpp NeuralNetwork/Neuron/Neuron.cpp NeuralNetwork/Layer/Layer.cpp NeuralNetwork/NeuralNetwork.cpp NeuralNetwork/Calcul.cpp
 
 OBJET=$(SRC:.cpp=.o)
 
@@ -27,6 +27,7 @@ Main.o: NeuralNetwork/NeuralNetwork.hpp
 Neuron.o: NeuralNetwork/Neuron/Neuron.hpp
 Layer.o: NeuralNetwork/Neuron/Layer.hpp
 NeuralNetwork.o: NeuralNetwork/NeuralNetwork.hpp NeuralNetwork/Layer.hpp
+Calcul.o: NeuralNetwork/Calcul.hpp NeuralNetwork/Neuron/Neuron.hpp
 
 %.o:%.cpp
 	@$(CC) -o $@ -c $< ${CFLAGS}

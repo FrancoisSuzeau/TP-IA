@@ -42,7 +42,8 @@
             ~Layer();
 
             void connectNeuronsWithPrev();
-            void displayNeurons() ;
+            void displayNeurons();
+            void calculateAiFunction();
     };
 
 

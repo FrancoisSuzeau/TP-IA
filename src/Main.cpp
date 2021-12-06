@@ -22,9 +22,10 @@ int main(int args, char *argv[])
     (void) args;
     (void) argv;
 
-    unsigned int config[] = {4, 5};
+    unsigned int config[] = {2, 2};
     NeuralNetwork nw(config);
 
+    nw.aiPhase();
     nw.displayLayer();
 
     return EXIT_SUCCESS;

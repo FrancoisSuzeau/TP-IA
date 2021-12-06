@@ -19,14 +19,18 @@
 /******************************************************************************************************************************************************/
 /********************************************************* Constructors and destructor ****************************************************************/
 /******************************************************************************************************************************************************/
-Neuron::Neuron(std::string layerID, float weight) : m_layerID(layerID), m_weight(weight), m_ai_value(0.0f), m_out(0.0f)
+Neuron::Neuron(float config[2], std::string type) : nb_neuron_to_connect(config[1]), m_ai_value(0.0f), m_out(config[0]), m_type(type)
 {
+    m_weight = new float[nb_neuron_to_connect];
+    float min = -1.0f;
+    float max = 1.0f;
 
-}
-
-Neuron::Neuron() : m_layerID("bias"), m_weight(1.0f), m_ai_value(0.0f), m_out(1.0f) //here no need to set an ai value
-{
-
+    for (int i = 0; i < nb_neuron_to_connect; i++)
+    {
+        m_weight[i] = min + ((float) rand() / RAND_MAX * (max - min));
+        std::cout << m_weight[i] << std::endl;
+    }
+    
 }
 
 Neuron::~Neuron()
@@ -35,14 +39,32 @@ Neuron::~Neuron()
 
 }
 
-
-void Neuron::calculateAi()
+/******************************************************************************************************************************************************/
+/************************************************************************ calculateAi *****************************************************************/
+/******************************************************************************************************************************************************/
+void Neuron::calculateAi(int index)
 {
+    float ai_Tot(0.0f);
+    for(std::vector<Neuron*>::iterator it = in_neurons.begin(); it != in_neurons.end(); ++it)
+    {
+        if(m_type == "use") //bias has no ai calculation
+        {
+            ai_Tot += Calcul::calculateAi(it[0]->getValue(), it[0]->getWeight(index));
+        }
+    }
 
+    this->setAiValue(ai_Tot);
 }
 
+/******************************************************************************************************************************************************/
+/***************************************************************** calculateLogActivation *************************************************************/
+/******************************************************************************************************************************************************/
 void Neuron::calculateLogActivation()
 {
+    if(m_type == "use")
+    {
+        m_out = Calcul::calculY(this->getAi());
+    }
     
 }
 
@@ -60,14 +82,9 @@ void Neuron::setPreviousNeurons(std::vector<Neuron*> previous_neurons)
 /******************************************************************************************************************************************************/
 /********************************************************************* getters/setters ****************************************************************/
 /******************************************************************************************************************************************************/
-std::string Neuron::getLayer() const
+float Neuron::getWeight(int index) const
 {
-    return m_layerID;
-}
-
-float Neuron::getWeight() const
-{
-    return m_weight;
+    return m_weight[index];
 }
 
 float Neuron::getValue() const
@@ -78,4 +95,9 @@ float Neuron::getValue() const
 void Neuron::setAiValue(float new_value)
 {
     m_ai_value = new_value;
+}
+
+float Neuron::getAi() const
+{
+    return m_ai_value;
 }

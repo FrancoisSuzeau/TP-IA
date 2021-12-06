@@ -20,14 +20,15 @@
     #include <iostream>
     #include <vector>
     #include <math.h>
+    #include "../Calcul.hpp"
 
     class Neuron
     {
         private:
 
-            std::string     m_layerID;
-
-            float           m_weight;
+            std::string     m_type;
+            float           *m_weight; // a tab because all neurons have a different weight for the number of neuron of the next layer
+            int             nb_neuron_to_connect;
             float           m_ai_value; // equal to the value the neuron compute with the linear function
             float           m_out; // equal to the value the neuron compute with the logical activation function and sending to the next neuron with the weight
 
@@ -35,19 +36,20 @@
 
 
             //TEMPORAIRE
-            void calculateAi();
-            void calculateLogActivation();
+            
+            
 
         public:
 
-            Neuron(std::string layerID, float weight);
-            Neuron(); //Constructor for bias neuron
+            Neuron(float config[2], std::string type);
             ~Neuron();
-            std::string getLayer() const;
-            float       getWeight() const;
+            float       getWeight(int index) const;
             float       getValue() const;
+            float       getAi() const;
 
             void setPreviousNeurons(std::vector<Neuron*> previous_neurons);
+            void calculateAi(int index);
+            void calculateLogActivation();
 
             void setAiValue(float new_value); //here new_value equal what the linear function calculate (WHHEN we will have the static class function)
     };

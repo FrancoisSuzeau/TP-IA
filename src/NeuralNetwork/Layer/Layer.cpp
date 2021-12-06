@@ -22,15 +22,29 @@
 Layer::Layer(Layer *previous_layer, int nb_neurons, int id)
 {
     m_previous_layer = previous_layer;
-    float min = 0.1f;
-    float max = 0.9f;
     m_id = std::to_string(id);
 
     for (int i = 0; i < nb_neurons; i++)
     {
-        float weight_n = min + ((float) rand() / RAND_MAX * (max - min + 1.0));
-        m_neurons.push_back(new Neuron(m_id, weight_n));
+        if(m_previous_layer == nullptr) // first layer
+        {
+            float config[] = {1.0f, nb_neurons};
+            m_neurons.push_back(new Neuron(config, "use"));
+        }
+        else
+        {
+            float config[] = {0.0f, nb_neurons};
+            m_neurons.push_back(new Neuron(config, "use"));
+        }
     }
+
+    if(nb_neurons != 1)
+    {
+        float config[] = {1.0f, (int)nb_neurons};
+        m_neurons.push_back(new Neuron(config, "bias")); //added a bias neuron
+    }
+
+    
 }
 
 Layer::~Layer()
@@ -64,6 +78,26 @@ void Layer::connectNeuronsWithPrev()
 }
 
 /******************************************************************************************************************************************************/
+/************************************************************ calculateAiFunction *********************************************************************/
+/******************************************************************************************************************************************************/
+void Layer::calculateAiFunction()
+{
+    if(m_previous_layer != nullptr)
+    {
+        int i(0);
+        for(std::vector<Neuron*>::iterator it = m_neurons.begin(); it != m_neurons.end(); ++it)
+        {
+            if(*it != nullptr)
+            {
+                it[0]->calculateAi(i);
+                it[0]->calculateLogActivation();
+                i++;
+            }
+        }
+    }
+}
+
+/******************************************************************************************************************************************************/
 /***************************************************************** displayNeurons *********************************************************************/
 /******************************************************************************************************************************************************/
 void Layer::displayNeurons()
@@ -76,9 +110,7 @@ void Layer::displayNeurons()
         {
             std::cout << "Previous layer : " << m_previous_layer->m_id << std::endl;
         }
-
-        std::cout << "My layer : " << it[0]->getLayer() << std::endl;
-        std::cout << "My weight : " << it[0]->getWeight() << std::endl;
+        std::cout << "My out : " << it[0]->getValue() << std::endl;
         
     }
 }
