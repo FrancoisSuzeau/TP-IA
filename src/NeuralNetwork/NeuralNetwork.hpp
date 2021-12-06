@@ -37,6 +37,7 @@
             ~NeuralNetwork();
 
             void aiPhase();
+            void convergencePhase();
             void displayLayer();
     };
 

@@ -26,14 +26,14 @@ Calcul::~Calcul()
 
 }
 
-float Calcul::delta(float y, float u)
+float Calcul::sigma(float y, float u)
 {
     return (u - y) * y * (1.0 - y); 
 }
 
-float Calcul::calculY(float sigma)
+float Calcul::calculY(float ai)
 {
-    return 1.0 / (1.0 + exp((-1)*sigma));
+    return 1.0 / (1.0 + exp((-1)*ai));
 }
 
 float Calcul::calculateAi(float in_prev_n, float weigh_prev_n)

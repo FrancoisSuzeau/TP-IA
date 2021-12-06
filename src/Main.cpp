@@ -60,5 +60,9 @@ int main(int args, char *argv[])
     nw.aiPhase();
     nw.displayLayer();
 
+    nw.convergencePhase();
+
+    nw.displayLayer();
+
     return EXIT_SUCCESS;
 }

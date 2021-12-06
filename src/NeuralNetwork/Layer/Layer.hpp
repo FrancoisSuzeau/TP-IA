@@ -44,6 +44,8 @@
             void connectNeuronsWithPrev();
             void displayNeurons();
             void calculateAiFunction();
+            void calculateSigmaNeurons();
+            
     };
 
 

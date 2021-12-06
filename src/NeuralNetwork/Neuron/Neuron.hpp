@@ -31,6 +31,7 @@
             int             nb_neuron_to_connect;
             float           m_ai_value; // equal to the value the neuron compute with the linear function
             float           m_out; // equal to the value the neuron compute with the logical activation function and sending to the next neuron with the weight
+            float           sigma;
 
             std::vector<Neuron*>    in_neurons;
 
@@ -46,10 +47,12 @@
             float       getWeight(int index) const;
             float       getValue() const;
             float       getAi() const;
+            float       getSigma() const;
 
             void setPreviousNeurons(std::vector<Neuron*> previous_neurons);
             void calculateAi(int index);
             void calculateLogActivation();
+            void calculateSigma();
 
             void setAiValue(float new_value); //here new_value equal what the linear function calculate (WHHEN we will have the static class function)
     };

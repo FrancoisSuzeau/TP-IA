@@ -31,8 +31,8 @@
             Calcul(/* args */);
             ~Calcul();
 
-            static float delta(float y, float u);
-            static float calculY(float sigma);
+            static float sigma(float y, float u);
+            static float calculY(float ai);
             static float calculateAi(float in_prev_n, float weigh_prev_n);
     };
 
