@@ -28,7 +28,7 @@ Neuron::Neuron(float config[2], std::string type) : nb_neuron_to_connect(config[
     for (int i = 0; i < nb_neuron_to_connect; i++)
     {
         m_weight[i] = min + ((float) rand() / RAND_MAX * (max - min));
-        std::cout << m_weight[i] << std::endl;
+        // std::cout << m_weight[i] << std::endl;
     }
     
 }
