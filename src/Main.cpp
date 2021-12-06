@@ -33,7 +33,6 @@ int main(int args, char *argv[])
             if(e.what())
             {
                 std::cout << "INVALIDE ARGUMENT at program start : must be two integers superior to 0" << std::endl;
-                return EXIT_FAILURE;
             }   
         }
     }
