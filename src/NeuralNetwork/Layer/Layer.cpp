@@ -19,7 +19,7 @@
 /******************************************************************************************************************************************************/
 /********************************************************* Constructors and destructor ****************************************************************/
 /******************************************************************************************************************************************************/
-Layer::Layer(Layer *previous_layer, int nb_neurons, int id)
+Layer::Layer(Layer *previous_layer, int nb_neurons, int id, float expected_output)
 {
     m_previous_layer = previous_layer;
     m_id = std::to_string(id);
@@ -28,19 +28,19 @@ Layer::Layer(Layer *previous_layer, int nb_neurons, int id)
     {
         if(m_previous_layer == nullptr) // first layer
         {
-            float config[] = {1.0f, nb_neurons};
+            float config[] = {1.0f, nb_neurons, expected_output};
             m_neurons.push_back(new Neuron(config, "use"));
         }
         else
         {
-            float config[] = {0.0f, nb_neurons};
+            float config[] = {0.0f, nb_neurons, expected_output};
             m_neurons.push_back(new Neuron(config, "use"));
         }
     }
 
     if(nb_neurons != 1)
     {
-        float config[] = {1.0f, (int)nb_neurons};
+        float config[] = {1.0f, nb_neurons, expected_output};
         m_neurons.push_back(new Neuron(config, "bias")); //added a bias neuron
     }
 
@@ -90,7 +90,7 @@ void Layer::calculateAiFunction()
             if(*it != nullptr)
             {
                 it[0]->calculateAi(i);
-                it[0]->calculateLogActivation();
+                // it[0]->calculateLogActivation();
                 i++;
             }
         }
@@ -98,7 +98,24 @@ void Layer::calculateAiFunction()
 }
 
 /******************************************************************************************************************************************************/
-/***************************************************************** calculateSigmaNeurons *********************************************************************/
+/************************************************************ calculateLogFunction ********************************************************************/
+/******************************************************************************************************************************************************/
+void Layer::calculateLogFunction()
+{
+    if(m_previous_layer != nullptr)
+    {
+        for(std::vector<Neuron*>::iterator it = m_neurons.begin(); it != m_neurons.end(); ++it)
+        {
+            if(*it != nullptr)
+            {
+                it[0]->calculateLogActivation();
+            }
+        }
+    }
+}
+
+/******************************************************************************************************************************************************/
+/*********************************************************** calculateSigmaNeurons ********************************************************************/
 /******************************************************************************************************************************************************/
 void Layer::calculateSigmaNeurons()
 {
@@ -112,12 +129,28 @@ void Layer::calculateSigmaNeurons()
 }
 
 /******************************************************************************************************************************************************/
+/*************************************************************** propagateGradient ********************************************************************/
+/******************************************************************************************************************************************************/
+void Layer::propagateGradient(float alpha)
+{
+    int i(0);
+    for(std::vector<Neuron*>::iterator it = m_neurons.begin(); it != m_neurons.end(); ++it)
+    {
+        if(*it != nullptr)
+        {
+            it[0]->calculateDeltasPreviN(alpha, i);
+            i++;
+        }
+    }
+}
+
+/******************************************************************************************************************************************************/
 /***************************************************************** displayNeurons *********************************************************************/
 /******************************************************************************************************************************************************/
 void Layer::displayNeurons()
 {
 
-    std::cout << "Layer : " << m_id << std::endl;
+    std::cout << ">>>>>>>>>>>>>>>>>>>>> Layer : " << m_id << std::endl;
     for(std::vector<Neuron*>::iterator it = m_neurons.begin(); it != m_neurons.end(); ++it)
     {
         if(m_previous_layer != nullptr)
@@ -125,7 +158,12 @@ void Layer::displayNeurons()
             std::cout << "Previous layer : " << m_previous_layer->m_id << std::endl;
         }
         std::cout << "My out : " << it[0]->getValue() << std::endl;
-        std::cout << "My sigma : " << it[0]->getSigma() << std::endl;
+        // std::cout << "My sigma : " << it[0]->getSigma() << std::endl;
         
     }
+}
+
+float Layer::getOutPut() const
+{
+    return m_neurons[0]->getValue();
 }

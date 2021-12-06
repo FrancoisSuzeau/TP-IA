@@ -19,7 +19,7 @@
 /******************************************************************************************************************************************************/
 /********************************************************* Constructors and destructor ****************************************************************/
 /******************************************************************************************************************************************************/
-Neuron::Neuron(float config[2], std::string type) : nb_neuron_to_connect(config[1]), m_ai_value(0.0f), m_out(config[0]), m_type(type), sigma(0.0)
+Neuron::Neuron(float config[3], std::string type) : nb_neuron_to_connect(config[1]), m_ai_value(0.0f), m_out(config[0]), m_type(type), sigma(0.0), m_expected_value(config[2])
 {
     m_weight = new float[nb_neuron_to_connect];
     float min = -1.0f;
@@ -73,12 +73,24 @@ void Neuron::calculateLogActivation()
 /******************************************************************************************************************************************************/
 void Neuron::calculateSigma()
 {
-    //if i understand it right u -> the ai value of the neuron and y -> the out value
+    //if i understand it right u -> the expected out value and y -> the out value of the neuron
     if(m_type == "use")
     {
-        sigma = Calcul::sigma(this->getValue(), this->getAi());
+        sigma = Calcul::sigma(this->getValue(), m_expected_value);
     }
     
+}
+
+/******************************************************************************************************************************************************/
+/********************************************************************** calculateDeltasPreviN ****************************************************************/
+/******************************************************************************************************************************************************/
+void Neuron::calculateDeltasPreviN(float alpha, int index)
+{
+    for(std::vector<Neuron*>::iterator it = in_neurons.begin(); it != in_neurons.end(); ++it)
+    {
+        float delta_w = Calcul::calculDeltaW(alpha, sigma, it[0]->getValue());
+        it[0]->updateWeighN(delta_w, index);
+    }
 }
 
 /******************************************************************************************************************************************************/
@@ -118,4 +130,9 @@ float Neuron::getAi() const
 float Neuron::getSigma() const
 {
     return sigma;
+}
+
+void Neuron::updateWeighN(float delta_w, int index)
+{
+    m_weight[index] += delta_w;
 }

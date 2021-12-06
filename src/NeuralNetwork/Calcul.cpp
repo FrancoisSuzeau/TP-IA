@@ -26,6 +26,11 @@ Calcul::~Calcul()
 
 }
 
+float Calcul::calculDeltaW(float alpha, float sigma, float out)
+{
+    return alpha * sigma * out;
+}
+
 float Calcul::sigma(float y, float u)
 {
     return (u - y) * y * (1.0 - y); 

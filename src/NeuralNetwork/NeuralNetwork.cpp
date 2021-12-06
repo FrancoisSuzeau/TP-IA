@@ -19,21 +19,21 @@
 /******************************************************************************************************************************************************/
 /********************************************************* Constructors and destructor ****************************************************************/
 /******************************************************************************************************************************************************/
-NeuralNetwork::NeuralNetwork(unsigned int config[2]): nb_layers(config[0])
+NeuralNetwork::NeuralNetwork(unsigned int config[4]): nb_layers(config[0]), alpha(config[3])
 {
    for (unsigned int i = 0; i < nb_layers; i++)
    {
        if(i == 0)
        {
-           m_layers.push_back(new Layer(nullptr, config[1], i));
+           m_layers.push_back(new Layer(nullptr, config[1], i, config[2]));
        }
        else
        {
-           m_layers.push_back(new Layer(m_layers[i - 1], config[1], i));
+           m_layers.push_back(new Layer(m_layers[i - 1], config[1], i, config[2]));
        }
    }
 
-   m_layers.push_back(new Layer(m_layers[nb_layers - 1], 1, nb_layers)); //final layer with one neuron
+   m_layers.push_back(new Layer(m_layers[nb_layers - 1], 1, nb_layers, config[2])); //final layer with one neuron
 
    for(std::vector<Layer*>::iterator it = m_layers.begin(); it != m_layers.end(); ++it)
    {
@@ -56,15 +56,16 @@ NeuralNetwork::~NeuralNetwork()
 }
 
 /******************************************************************************************************************************************************/
-/************************************************************************ aiPhase *********************************************************************/
+/***************************************************************** calculateOuput *********************************************************************/
 /******************************************************************************************************************************************************/
-void NeuralNetwork::aiPhase()
+void NeuralNetwork::calculateOuput()
 {
     for(std::vector<Layer*>::iterator it = m_layers.begin(); it != m_layers.end(); ++it)
     {
         if(*it != nullptr)
         {
             it[0]->calculateAiFunction();
+            it[0]->calculateLogFunction();
         }
     }
 }
@@ -77,6 +78,11 @@ void NeuralNetwork::convergencePhase()
     for(std::vector<Layer*>::iterator it = m_layers.end() - 1; it != m_layers.begin() - 1; --it)
     {
         it[0]->calculateSigmaNeurons();
+    }
+
+    for(std::vector<Layer*>::iterator it = m_layers.end() - 1; it != m_layers.begin() - 1; --it)
+    {
+        it[0]->propagateGradient(alpha);
     }
 }
 
@@ -92,4 +98,9 @@ void NeuralNetwork::displayLayer()
             it[0]->displayNeurons();
         }
     }
+}
+
+float NeuralNetwork::getFinalOutput() const
+{
+    return m_layers[nb_layers]->getOutPut();
 }

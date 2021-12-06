@@ -32,6 +32,7 @@
             ~Calcul();
 
             static float sigma(float y, float u);
+            static float calculDeltaW(float alpha, float sigma, float out);
             static float calculY(float ai);
             static float calculateAi(float in_prev_n, float weigh_prev_n);
     };

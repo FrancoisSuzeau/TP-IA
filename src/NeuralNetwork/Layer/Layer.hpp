@@ -38,13 +38,17 @@
             
         public:
 
-            Layer(Layer *previous_layer, int nb_neurons, int id);
+            Layer(Layer *previous_layer, int nb_neurons, int id, float expected_ouput);
             ~Layer();
 
             void connectNeuronsWithPrev();
             void displayNeurons();
             void calculateAiFunction();
+            void calculateLogFunction();
             void calculateSigmaNeurons();
+            void propagateGradient(float alpha);
+
+            float getOutPut() const;
             
     };
 

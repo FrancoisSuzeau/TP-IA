@@ -37,7 +37,7 @@ int main(int args, char *argv[])
         }
     }
 
-    unsigned int config[2];
+    unsigned int config[4];
 
     switch (arguments.size())
     {
@@ -54,15 +54,22 @@ int main(int args, char *argv[])
         default:
             break;
     }
+
+    //! TEMPORALLY
+    config[2] = 0.0f;
+    config[3] = 1.0f;
     
     NeuralNetwork nw(config);
 
-    nw.aiPhase();
+    nw.calculateOuput();
     nw.displayLayer();
 
     nw.convergencePhase();
+    nw.calculateOuput();
 
     nw.displayLayer();
+    std::cout << nw.getFinalOutput() << std::endl;
+
 
     return EXIT_SUCCESS;
 }

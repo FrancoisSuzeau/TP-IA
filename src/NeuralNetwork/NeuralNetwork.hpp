@@ -29,15 +29,17 @@
 
             std::vector<Layer*>     m_layers;
             int                     nb_layers;
+            float                   alpha;
 
             
         public:
 
-            NeuralNetwork(unsigned int config[2]);
+            NeuralNetwork(unsigned int config[4]);
             ~NeuralNetwork();
 
-            void aiPhase();
+            void calculateOuput();
             void convergencePhase();
+            float getFinalOutput() const;
             void displayLayer();
     };
 
