@@ -66,6 +66,9 @@ int main(int args, char *argv[])
 
     NeuralNetwork nw(config);
 
+    float error_at_start(0.0f);
+    float error_at_end(0.0f);
+
     Calcul::Start();
 
     int i(0);
@@ -75,12 +78,18 @@ int main(int args, char *argv[])
         nw.convergencePhase();
 
         // std::cout << nw.getFinalOutput() << std::endl;
+        if(i == 0)
+        {
+            error_at_start = nw.calculateError();
+        }
 
         i++;
 
     } while(nw.getFinalOutput() < 0.999);
 
     Calcul::End();
+
+    error_at_end = nw.calculateError();
 
     // nw.displayLayer();
 
@@ -94,34 +103,50 @@ int main(int args, char *argv[])
 
     std::cout << "Time passed : " << (time_t) Calcul::getTimePassed() << std::endl;
     std::cout << "Iteration count : " << i << std::endl;
+    std::cout << "Error at first try : " << error_at_start << std::endl;
+    std::cout << "Error at the end : " << error_at_end << std::endl;
 
     //Score with default parameter :
-    //  - Time : 0
+    //  - Time : 1
     //  - Iteration : 166 621
+    //  - error start : 0.516204
+    //  - error end :  9.99974e-07
 
     //Score with 11 layers and 11 neurons per layers :
     //  - Time : 4
     //  - Iteration : 45 303
+    //  - error start : 0.176818
+    //  - error end :  9.99974e-07
 
     //Score with 21 layers and 21 neurons per layers :
     //  - Time : 13
     //  - Iteration : 23 752
+    //  - error start : 0.356778
+    //  - error end :  9.99974e-07
 
     //Score with 11 layers and 21 neurons per layers :
     //  - Time : 7
     //  - Iteration : 23 775
+    //  - error start : 0.0476364
+    //  - error end :  9.99974e-07
 
     //Score with 21 layers and 11 neurons per layers :
     //  - Time : 8
     //  - Iteration : 45 327
+    //  - error start : 0.0200474
+    //  - error end :  9.99974e-07
 
     //Score with 11 layers and 31 neurons per layers :
     //  - Time : 9
     //  - Iteration : 15 822
+    //  - error start : 0.0401927
+    //  - error end :  9.99974e-07
 
     //Score with 5 layers and 31 neurons per layers :
     //  - Time : 3
     //  - Iteration : 16 091
+    //  - error start : 0.389319
+    //  - error end :  9.99974e-07
 
     return EXIT_SUCCESS;
 }

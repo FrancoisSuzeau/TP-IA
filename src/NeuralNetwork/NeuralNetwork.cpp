@@ -111,9 +111,7 @@ float NeuralNetwork::getFinalOutput() const
 /******************************************************************************************************************************************************/
 /***************************************************************** calculateError *********************************************************************/
 /******************************************************************************************************************************************************/
-void NeuralNetwork::calculateError()
+float NeuralNetwork::calculateError()
 {
-    error = m_layers[nb_layers]->calculateErrorFinalNeuron();
-
-    std::cout << error << std::endl;
+    return m_layers[nb_layers]->calculateErrorFinalNeuron();
 }
