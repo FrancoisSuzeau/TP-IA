@@ -24,10 +24,10 @@ ${EXEC}: ${OBJET}
 # au cas ou .h est modifié
 
 Main.o: NeuralNetwork/NeuralNetwork.hpp
-Neuron.o: NeuralNetwork/Neuron/Neuron.hpp
-Layer.o: NeuralNetwork/Neuron/Layer.hpp
+Neuron.o: NeuralNetwork/Neuron/Neuron.hpp NeuralNetwork/Calcul.hpp
+Layer.o: NeuralNetwork/Neuron/Layer.hpp NeuralNetwork/Neuron/Neuron.hpp
 NeuralNetwork.o: NeuralNetwork/NeuralNetwork.hpp NeuralNetwork/Layer.hpp
-Calcul.o: NeuralNetwork/Calcul.hpp NeuralNetwork/Neuron/Neuron.hpp
+Calcul.o: NeuralNetwork/Calcul.hpp
 
 %.o:%.cpp
 	@$(CC) -o $@ -c $< ${CFLAGS}

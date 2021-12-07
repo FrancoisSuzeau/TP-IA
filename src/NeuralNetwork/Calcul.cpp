@@ -16,6 +16,9 @@
 
 #include "Calcul.hpp"
 
+time_t Calcul::start_progr = 0.0;
+time_t Calcul::end_progr = 0.0;
+
 Calcul::Calcul()
 {
 
@@ -44,4 +47,24 @@ float Calcul::calculY(float ai)
 float Calcul::calculateAi(float in_prev_n, float weigh_prev_n)
 {
     return in_prev_n * weigh_prev_n;
+}
+
+float Calcul::calculErrorNW(float expected_output, float real_output)
+{
+    return (float) pow((expected_output - real_output), 2);
+}
+
+void Calcul::Start()
+{
+    start_progr = time(nullptr);
+}
+
+void Calcul::End()
+{
+    end_progr = time(nullptr);
+}
+
+time_t Calcul::getTimePassed()
+{
+    return end_progr - start_progr;
 }

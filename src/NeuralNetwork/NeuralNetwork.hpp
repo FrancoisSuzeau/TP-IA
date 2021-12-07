@@ -30,6 +30,7 @@
             std::vector<Layer*>     m_layers;
             int                     nb_layers;
             float                   alpha;
+            float                   error;
 
             
         public:
@@ -40,6 +41,8 @@
             void calculateOuput();
             void convergencePhase();
             float getFinalOutput() const;
+
+            void calculateError(); //calculate the performance of the neural network
             void displayLayer();
     };
 

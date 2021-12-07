@@ -47,7 +47,7 @@ void Neuron::calculateAi(int index)
     float ai_Tot(0.0f);
     for(std::vector<Neuron*>::iterator it = in_neurons.begin(); it != in_neurons.end(); ++it)
     {
-        if(m_type == "use") //bias has no ai calculation
+        if((m_type == "use") || (m_type == "final")) //bias has no ai calculation
         {
             ai_Tot += Calcul::calculateAi(it[0]->getValue(), it[0]->getWeight(index));
         }
@@ -61,7 +61,7 @@ void Neuron::calculateAi(int index)
 /******************************************************************************************************************************************************/
 void Neuron::calculateLogActivation()
 {
-    if(m_type == "use")
+    if((m_type == "use") || (m_type == "final"))
     {
         m_out = Calcul::calculY(this->getAi());
     }
@@ -74,7 +74,7 @@ void Neuron::calculateLogActivation()
 void Neuron::calculateSigma()
 {
     //if i understand it right u -> the expected out value and y -> the out value of the neuron
-    if(m_type == "use")
+    if((m_type == "final") || (m_type == "use") || (m_type == "bias"))
     {
         sigma = Calcul::sigma(this->getValue(), m_expected_value);
     }
@@ -102,6 +102,14 @@ void Neuron::setPreviousNeurons(std::vector<Neuron*> previous_neurons)
     {
         in_neurons.push_back(*it);
     }
+}
+
+/******************************************************************************************************************************************************/
+/**************************************************************** calculateErrorNeuron ****************************************************************/
+/******************************************************************************************************************************************************/
+float Neuron::calculateErrorNeuron()
+{
+    return Calcul::calculErrorNW(m_expected_value, this->getValue());
 }
 
 /******************************************************************************************************************************************************/
@@ -135,4 +143,16 @@ float Neuron::getSigma() const
 void Neuron::updateWeighN(float delta_w, int index)
 {
     m_weight[index] += delta_w;
+}
+
+void Neuron::displayWeightEntrance(int index)
+{
+    if(m_type != "bias")
+    {
+        for(std::vector<Neuron*>::iterator it = in_neurons.begin(); it != in_neurons.end(); ++it)
+        {
+            std::cout << it[0]->getWeight(index) << std::endl;
+        }
+    }
+    
 }

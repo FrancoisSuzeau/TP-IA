@@ -19,13 +19,18 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
+#include <chrono>
+#include <ctime>
 
     
 
     class Calcul
     {
         private:
-            /* data */
+            
+            static time_t start_progr;
+            static time_t end_progr;
+
         public:
 
             Calcul(/* args */);
@@ -35,6 +40,11 @@
             static float calculDeltaW(float alpha, float sigma, float out);
             static float calculY(float ai);
             static float calculateAi(float in_prev_n, float weigh_prev_n);
+            static float calculErrorNW(float expected_value, float real_output);
+
+            static void Start();
+            static void End();
+            static time_t getTimePassed();
     };
 
 

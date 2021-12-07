@@ -25,15 +25,15 @@ NeuralNetwork::NeuralNetwork(unsigned int config[4]): nb_layers(config[0]), alph
    {
        if(i == 0)
        {
-           m_layers.push_back(new Layer(nullptr, config[1], i, config[2]));
+           m_layers.push_back(new Layer(nullptr, config[1], i, config[2], false));
        }
        else
        {
-           m_layers.push_back(new Layer(m_layers[i - 1], config[1], i, config[2]));
+           m_layers.push_back(new Layer(m_layers[i - 1], config[1], i, config[2], false));
        }
    }
 
-   m_layers.push_back(new Layer(m_layers[nb_layers - 1], 1, nb_layers, config[2])); //final layer with one neuron
+   m_layers.push_back(new Layer(m_layers[nb_layers - 1], 1, nb_layers, config[2], true)); //final layer with one neuron
 
    for(std::vector<Layer*>::iterator it = m_layers.begin(); it != m_layers.end(); ++it)
    {
@@ -100,7 +100,20 @@ void NeuralNetwork::displayLayer()
     }
 }
 
+/******************************************************************************************************************************************************/
+/***************************************************************** getFinalOutput *********************************************************************/
+/******************************************************************************************************************************************************/
 float NeuralNetwork::getFinalOutput() const
 {
     return m_layers[nb_layers]->getOutPut();
+}
+
+/******************************************************************************************************************************************************/
+/***************************************************************** calculateError *********************************************************************/
+/******************************************************************************************************************************************************/
+void NeuralNetwork::calculateError()
+{
+    error = m_layers[nb_layers]->calculateErrorFinalNeuron();
+
+    std::cout << error << std::endl;
 }

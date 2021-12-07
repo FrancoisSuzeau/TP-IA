@@ -57,6 +57,10 @@
             void calculateLogActivation();
             void calculateSigma();
             void calculateDeltasPreviN(float alpha, int index);
+
+            void displayWeightEntrance(int index);
+
+            float calculateErrorNeuron();
             
 
             void setAiValue(float new_value); //here new_value equal what the linear function calculate (WHHEN we will have the static class function)

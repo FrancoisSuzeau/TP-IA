@@ -38,7 +38,7 @@
             
         public:
 
-            Layer(Layer *previous_layer, int nb_neurons, int id, float expected_ouput);
+            Layer(Layer *previous_layer, int nb_neurons, int id, float expected_ouput, bool last_layer);
             ~Layer();
 
             void connectNeuronsWithPrev();
@@ -46,6 +46,7 @@
             void calculateAiFunction();
             void calculateLogFunction();
             void calculateSigmaNeurons();
+            float calculateErrorFinalNeuron();
             void propagateGradient(float alpha);
 
             float getOutPut() const;
