@@ -28,7 +28,6 @@
     {
         private:
 
-            //TEMPORAIRE
             std::string             m_id;
             
             std::vector<Neuron*>    m_neurons;

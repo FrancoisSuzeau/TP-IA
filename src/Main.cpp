@@ -60,7 +60,6 @@ int main(int args, char *argv[])
             break;
     }
 
-    //! TEMPORALLY
     config[2] = 1.0f;
     config[3] = 1.0f;
 
@@ -105,48 +104,6 @@ int main(int args, char *argv[])
     std::cout << "Iteration count : " << i << std::endl;
     std::cout << "Error at first try : " << error_at_start << std::endl;
     std::cout << "Error at the end : " << error_at_end << std::endl;
-
-    //Score with default parameter :
-    //  - Time : 1
-    //  - Iteration : 166 621
-    //  - error start : 0.516204
-    //  - error end :  9.99974e-07
-
-    //Score with 11 layers and 11 neurons per layers :
-    //  - Time : 4
-    //  - Iteration : 45 303
-    //  - error start : 0.176818
-    //  - error end :  9.99974e-07
-
-    //Score with 21 layers and 21 neurons per layers :
-    //  - Time : 13
-    //  - Iteration : 23 752
-    //  - error start : 0.356778
-    //  - error end :  9.99974e-07
-
-    //Score with 11 layers and 21 neurons per layers :
-    //  - Time : 7
-    //  - Iteration : 23 775
-    //  - error start : 0.0476364
-    //  - error end :  9.99974e-07
-
-    //Score with 21 layers and 11 neurons per layers :
-    //  - Time : 8
-    //  - Iteration : 45 327
-    //  - error start : 0.0200474
-    //  - error end :  9.99974e-07
-
-    //Score with 11 layers and 31 neurons per layers :
-    //  - Time : 9
-    //  - Iteration : 15 822
-    //  - error start : 0.0401927
-    //  - error end :  9.99974e-07
-
-    //Score with 5 layers and 31 neurons per layers :
-    //  - Time : 3
-    //  - Iteration : 16 091
-    //  - error start : 0.389319
-    //  - error end :  9.99974e-07
 
     return EXIT_SUCCESS;
 }

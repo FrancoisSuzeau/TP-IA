@@ -35,12 +35,7 @@
             float           m_expected_value;
 
             std::vector<Neuron*>    in_neurons;
-
-
-            //TEMPORAIRE
             
-            
-
         public:
 
             Neuron(float config[3], std::string type);

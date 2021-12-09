@@ -99,7 +99,6 @@ void Layer::calculateAiFunction()
             if(*it != nullptr)
             {
                 it[0]->calculateAi(i);
-                // it[0]->calculateLogActivation();
                 i++;
             }
         }

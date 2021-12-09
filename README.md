@@ -2,7 +2,7 @@
 
 ## Projet : TP Intelligence Artificiel
 
-Ce programme est uniquement compilé pour un environnement WINDOWS;
+Ce programme est écrit pour un environnement WINDOWS et LINUX
 
 Ce petit projet à pour but de créer un réseau de neurone selon des paramètres choisit par l'utilisateur (nombre de couches et nombre de neurones par couche).
 Par la suite on analyse les résultats obtenus :
